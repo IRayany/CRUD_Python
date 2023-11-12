@@ -88,7 +88,7 @@ class PrincipalBD:
                 self.lbProximaConsulta.config(text=f'Próxima Consulta: {data_proxima_consulta_str}')
 
                 print('Próxima consulta calculada com sucesso!')
-                return data_consulta_original  
+                return data_proxima_consulta_str 
         except Exception as e:
             print('Não foi possível calcular a próxima consulta. Erro:', e)
         return None
@@ -118,7 +118,7 @@ class PrincipalBD:
     def fCadastrarPet(self):
         try:
             raca, nome, peso, data_consulta, valor_medicamentos = self.fLerCampos()
-            data_consulta_original = self.calcularProximaConsulta()  
+            data_consulta_original = self.txtDataConsulta.get()  
 
             if data_consulta_original:
                 valor_consulta = 80
@@ -149,7 +149,7 @@ class PrincipalBD:
         try:
             raca, nome, peso, data_consulta, valor_medicamentos = self.fLerCampos()
             data_consulta = self.formatarData(data_consulta)
-            proxima_consulta = self.txtDataConsulta.get()
+            proxima_consulta = self.calcularProximaConsulta()
 
             if raca and nome and peso and data_consulta and proxima_consulta:
                 valor_consulta = 80
@@ -164,7 +164,7 @@ class PrincipalBD:
     def fExcluirPet(self):
         try:
             raca, nome, peso, data_consulta, valor_medicamentos = self.fLerCampos()
-            if raca and nome and peso is not None:  # Certifique-se de que os campos obrigatórios estão preenchidos
+            if raca and nome and peso is not None:  
                 self.objBD.excluirDados(raca, nome, peso)
                 self.fLimparTela()
                 print('Pet Excluído com Sucesso!')
@@ -177,7 +177,8 @@ class PrincipalBD:
         
         registro_gui = RegistroGUI(tk.Toplevel())
 
-# Programa Principal
+
+
 janela = tk.Tk()
 Principal = PrincipalBD(janela)
 janela.title('Bem Vindo à Tela de Cadastro de Pets')
