@@ -85,9 +85,9 @@ caminho_arquivo = "/content/municipio_bioma.csv.gz"
 municipio_bioma = pd.read_csv(caminho_arquivo)
 
 estado_rj = '31'
-estado_caatinga = municipio_bioma[(municipio_bioma['id_municipio'].astype(str).str[:2] == estado_rj) & (municipio_bioma['bioma'] == 'Mata Atlântica')]
+estado_mata = municipio_bioma[(municipio_bioma['id_municipio'].astype(str).str[:2] == estado_rj) & (municipio_bioma['bioma'] == 'Mata Atlântica')]
 
-estado.dropna(subset=['desmatado', 'nao_vegetacao_natural', 'vegetacao_natural'], inplace=True)
+estado_mata.dropna(subset=['desmatado', 'nao_vegetacao_natural', 'vegetacao_natural'], inplace=True)
 
 area_desmatada = estado_caatinga.groupby('ano')['desmatado'].sum().dropna()
 
@@ -99,7 +99,7 @@ y = area_desmatada.values
 coeficiente_angular, intercepto = np.polyfit(X, y, 1)
 y_pred = coeficiente_angular * X + intercepto
 
-plt.scatter(area_total['total'], area_desmatada, label='Dados Originais', color='green')
+plt.scatter(area_total['total'], area_desmatada, label='Dados anual (2000 até 2022)', color='green')
 plt.plot(area_total['total'], y_pred, color='red', linewidth=2, label='Linha de Regressão')
 plt.xlabel('Área Total (km²)')
 plt.ylabel('Área Desmatada (km²)')
@@ -119,9 +119,9 @@ caminho_arquivo = "/content/municipio_bioma.csv.gz"
 municipio_bioma = pd.read_csv(caminho_arquivo)
 
 estado_rj = '31'
-estado_caatinga = municipio_bioma[(municipio_bioma['id_municipio'].astype(str).str[:2] == estado_rj) & (municipio_bioma['bioma'] == 'Cerrado')]
+estado_cerrado = municipio_bioma[(municipio_bioma['id_municipio'].astype(str).str[:2] == estado_rj) & (municipio_bioma['bioma'] == 'Cerrado')]
 
-estado.dropna(subset=['desmatado', 'nao_vegetacao_natural', 'vegetacao_natural'], inplace=True)
+estado_cerrado.dropna(subset=['desmatado', 'nao_vegetacao_natural', 'vegetacao_natural'], inplace=True)
 
 area_desmatada = estado_caatinga.groupby('ano')['desmatado'].sum().dropna()
 
@@ -133,7 +133,7 @@ y = area_desmatada.values
 coeficiente_angular, intercepto = np.polyfit(X, y, 1)
 y_pred = coeficiente_angular * X + intercepto
 
-plt.scatter(area_total['total'], area_desmatada, label='Dados Originais', color='orange')
+plt.scatter(area_total['total'], area_desmatada, label='Dados anual (2000 até 2022)', color='orange')
 plt.plot(area_total['total'], y_pred, color='red', linewidth=2, label='Linha de Regressão')
 plt.xlabel('Área Total (km²)')
 plt.ylabel('Área Desmatada (km²)')
